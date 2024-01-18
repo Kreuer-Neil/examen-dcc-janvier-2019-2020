@@ -29,7 +29,7 @@ olElement.childNodes.forEach((r) => {
 
     if (settings.premierNumbers.includes(Number(r.textContent))) {
         addRibbon(settings.premier, settings.premier, r);
-        r.dataset.sum = '';//for(let j=1,k = 0;j<i;j++){j+k=k; return k;}
+        r.dataset.sum = autoSumm(parseInt(r.textContent));//for(let j=1,k = 0;j<i;j++){j+k=k; return k;}
     } else if (r.textContent % 9 === 0) {
         addRibbon(settings.byThreeNineCLass, settings.byThreeNineText, r);
     } else if (r.textContent % 3 === 0) {
@@ -42,6 +42,32 @@ function addRibbon(liClass, divText, e) {
     e.insertAdjacentHTML('beforeend', `<div class="ribbon-wrapper">
     <div class="ribbon">${divText}</div>
   </div>`);
+}
+
+const premierElements = document.querySelectorAll('.premier');
+
+premierElements.forEach((el)=>{
+    el.addEventListener('click',(e)=>{
+        toggleActive(e);
+        //setTimeout(()=>{toggleActive(e);}, 500,e);
+        const current = e.currentTarget;
+        [current.dataset.sum,current.textContent] = [current.textContent,current.dataset.sum];
+    });
+});
+
+function toggleActive(e) {
+    e.currentTarget.classList.toggle('animate');
+    console.log(e);
+    olElement.childNodes.forEach((l)=> {
+        l.classList.toggle('grid__item--lighter');
+    });
+}
+
+function autoSumm(value){
+    let j=0;
+    for(let i=1;value>=i;i++){
+        j+=i;
+    } return j;
 }
 
 function isPremier(nb) {
