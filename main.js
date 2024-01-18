@@ -35,7 +35,7 @@ olElement.childNodes.forEach((r) => {
     } else if (r.textContent % 3 === 0) {
         addRibbon(settings.byThreeCLass, settings.byThreeText, r);
     }
-})
+});
 
 function addRibbon(liClass, divText, e) {
     e.classList.add(liClass);
